@@ -1,0 +1,21 @@
+package com.example.demo.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.example.demo.model.Finance;
+
+@Repository
+public interface FinanceRepository extends JpaRepository<Finance, Long>{
+	List<Finance> findTop5ByOrderByRevenueDesc();
+	List<Finance> findTop5ByOrderByProfitDesc();
+	
+	@Query(
+			value = "SELECT currency, COUNT(currency) AS tally FROM finance "
+					+ "GROUP BY currency ORDER BY tally DESC LIMIT 5",
+			nativeQuery=true)
+	List<Object[]> findByCurrency();
+}
