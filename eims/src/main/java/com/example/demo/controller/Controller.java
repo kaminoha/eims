@@ -32,7 +32,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.example.demo.model.Agent;
 import com.example.demo.model.Customer;
 import com.example.demo.model.DBFile;
 import com.example.demo.model.Employee;
@@ -42,7 +41,6 @@ import com.example.demo.model.RatioResponse;
 import com.example.demo.model.User;
 import com.example.demo.model.Work;
 import com.example.demo.payload.UploadFileResponse;
-import com.example.demo.repository.AgentRepository;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.DBFileRepository;
 import com.example.demo.repository.EmployeeRepository;
