@@ -24,7 +24,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>{
 					nativeQuery=true)
 	List<?> findByTally();
 	@Query(
-			value = "SELECT MONTH(f_date), SUM(profit) as p from finance where MONTH(f_date) = ?1",
+			value = "SELECT EXTRACT(MONTH from f_date) as pmonth, SUM(profit) as p from finance "
+					+ "where EXTRACT(MONTH from f_date) = ?1",
 			nativeQuery = true)
 	List<Object[]> findByProfit(int profit);
 	
