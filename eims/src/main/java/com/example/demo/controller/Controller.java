@@ -73,8 +73,6 @@ public class Controller {
     @Autowired
     private DBFileRepository dbFileRepository;
     @Autowired
-    private AgentRepository agentRepository;
-    @Autowired
     private WorkRepository workRepository;
 	
 	@PostMapping("/login")
@@ -306,10 +304,6 @@ public class Controller {
     @GetMapping("/topCustomer")
     public List<Customer> getTopCustomer(){
     	return customerRepository.findTop10ByOrderByFinance_ProfitDesc();
-    }
-    @GetMapping("/topAgent")
-    public List<Agent> getTopAgent(){
-    	return agentRepository.findTop5ByOrderBySalesDesc();
     }
     @GetMapping("/topFinancial")
     private List<Customer> getTopFinancial(){
