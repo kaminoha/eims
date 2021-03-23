@@ -38,7 +38,7 @@ import com.example.demo.model.Employee;
 import com.example.demo.model.Finance;
 import com.example.demo.model.LoginResponse;
 import com.example.demo.model.RatioResponse;
-import com.example.demo.model.User;
+import com.example.demo.model.Users;
 import com.example.demo.model.Work;
 import com.example.demo.payload.UploadFileResponse;
 import com.example.demo.repository.CustomerRepository;
@@ -74,20 +74,20 @@ public class Controller {
     private WorkRepository workRepository;
 	
 	@PostMapping("/login")
-	public ResponseEntity<LoginResponse> login(@Valid @RequestBody User user){
+	public ResponseEntity<LoginResponse> login(@Valid @RequestBody Users user){
 		String jwtToken = "";
 		
 		LoginResponse response = new LoginResponse();
-		if(user.getUserName() == null || user.getPassword() == null) {
+		if(user.getUsername() == null || user.getPassword() == null) {
 			response.setMessage("Please enter your credentials");
 			response.setStatus(false);
 			return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
 		}
 		
-		String username = user.getUserName();
+		String username = user.getUsername();
 		String password = user.getPassword();
 		
-		List<User> reg = userRepository.findByUserNameAndPassword(username, password);
+		List<Users> reg = userRepository.findByUserNameAndPassword(username, password);
 		
 		jwtToken = Jwts.builder().setSubject(username).claim("user", user)
 				.setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretKey")
