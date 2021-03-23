@@ -19,14 +19,14 @@ public class DBFile implements Serializable{
 	@Id    
 	@GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String id;
+	private String fileId;
 	
 	private String fileName;
 	
 	private String fileType;
 	
 	@Lob
-	private byte[] data;
+	private byte[] fileData;
 	
 	public DBFile() {
 		
@@ -35,15 +35,15 @@ public class DBFile implements Serializable{
 	public DBFile(String fileName, String fileType, byte[] data) {
 		this.fileName = fileName;
 		this.fileType= fileType;
-		this.data = data;
+		this.fileData = data;
 	}
 
 	public String getId() {
-		return id;
+		return fileId;
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this.fileId = id;
 	}
 
 	public String getFileName() {
@@ -63,11 +63,11 @@ public class DBFile implements Serializable{
 	}
 
 	public byte[] getData() {
-		return data;
+		return fileData;
 	}
 
 	public void setData(byte[] data) {
-		this.data = data;
+		this.fileData = data;
 	}
 
 }
