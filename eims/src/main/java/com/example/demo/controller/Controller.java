@@ -152,8 +152,8 @@ public class Controller {
                 .body(new ByteArrayResource(dbFile.getData()));
     }
     @GetMapping("/displayFile")
-    public List<Files> getFile(){
-    	return dbFileRepository.findAll();
+    public Files getFile(){
+    	return dbFileRepository.findOne("088192d1-d62c-4a3d-9b8a-cc1888631ea1");
     }
     @GetMapping("/genderRatio")
     public ResponseEntity<RatioResponse> getRatio(){
