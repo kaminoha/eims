@@ -33,7 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.demo.model.Customer;
-import com.example.demo.model.DBFile;
+import com.example.demo.model.Files;
 import com.example.demo.model.Employee;
 import com.example.demo.model.Finance;
 import com.example.demo.model.LoginResponse;
@@ -122,7 +122,7 @@ public class Controller {
 	
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-        DBFile dbFile = dbFileStorageService.storeFile(file);
+        Files dbFile = dbFileStorageService.storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
@@ -144,7 +144,7 @@ public class Controller {
     @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {
         // Load file from database
-        DBFile dbFile = dbFileStorageService.getFile(fileId);
+        Files dbFile = dbFileStorageService.getFile(fileId);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(dbFile.getFileType()))
@@ -152,7 +152,7 @@ public class Controller {
                 .body(new ByteArrayResource(dbFile.getData()));
     }
     @GetMapping("/displayFile")
-    public List<DBFile> getFile(){
+    public List<Files> getFile(){
     	return dbFileRepository.findAll();
     }
     @GetMapping("/genderRatio")
