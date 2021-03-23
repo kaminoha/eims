@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.model.User;
+import com.example.demo.model.Users;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>{
-	List<User> findByUserNameAndPassword(String username, String password);
+public interface UserRepository extends JpaRepository<Users, Long>{
+	List<Users> findByUserNameAndPassword(String username, String password);
 }
