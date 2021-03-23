@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.exception.FileStorageException;
 //import com.example.demo.exception.MyFileNotFoundException;
-import com.example.demo.model.DBFile;
+import com.example.demo.model.Files;
 import com.example.demo.repository.DBFileRepository;
 
 @Service
@@ -18,7 +18,7 @@ public class DBFileStorageService {
     @Autowired
     private DBFileRepository dbFileRepository;
 
-    public DBFile storeFile(MultipartFile file) {
+    public Files storeFile(MultipartFile file) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
@@ -28,7 +28,7 @@ public class DBFileStorageService {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
-            DBFile dbFile = new DBFile(fileName, file.getContentType(), file.getBytes());
+            Files dbFile = new Files(fileName, file.getContentType(), file.getBytes());
 
             return dbFileRepository.save(dbFile);
         } catch (IOException ex) {
@@ -36,7 +36,7 @@ public class DBFileStorageService {
         }
     }
 
-    public DBFile getFile(String fileId) {
+    public Files getFile(String fileId) {
         return dbFileRepository.findById(fileId);
     }
 }
