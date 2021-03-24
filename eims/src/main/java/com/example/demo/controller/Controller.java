@@ -153,7 +153,7 @@ public class Controller {
     }
     @GetMapping("/displayFile")
     public List<Files> getFile(){
-    	return dbFileRepository.findAll();
+    	return dbFileRepository.findFiles();
     }
     @GetMapping("/genderRatio")
     public ResponseEntity<RatioResponse> getRatio(){
