@@ -13,7 +13,7 @@ public interface DBFileRepository extends JpaRepository<Files, String>{
 	@Query(value = "Select * from files where file_id = '?1'",
 			nativeQuery = true)
 	Files findById(String fileId);
-	@Query(value = "Select file_id, encode(file_data, 'escape'), file_name ,file_type from files",
+	@Query(value = "Select file_id, file_name, file_type from files",
 			nativeQuery = true)
 	List<Files>findFiles();
 }
