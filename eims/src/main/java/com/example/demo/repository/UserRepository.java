@@ -11,5 +11,5 @@ import com.example.demo.model.Users;
 public interface UserRepository extends JpaRepository<Users, Long>{
 /*	@Query(value = "select * from users where username = '?1' and pass = '?2'",
 			nativeQuery = true)*/
-	List<Users> findByUserNameAndPassword(String username, String password);
+	List<Users> findByUsernameAndPassword(String username, String password);
 }
