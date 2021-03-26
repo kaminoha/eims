@@ -18,4 +18,7 @@ public interface FinanceRepository extends JpaRepository<Finance, Long>{
 					+ "GROUP BY currency ORDER BY tally DESC LIMIT 5",
 			nativeQuery=true)
 	List<Object[]> findByCurrency();
+	@Query(value = "Select * from finance ORDER BY f_date",
+			nativeQuery = true)
+	List<Finance> findByFdate();
 }
