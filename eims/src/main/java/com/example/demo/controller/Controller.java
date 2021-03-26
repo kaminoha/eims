@@ -87,7 +87,7 @@ public class Controller {
 		String username = user.getUsername();
 		String password = user.getPassword();
 		
-		List<Users> reg = userRepository.findByUserNameAndPassword(username, password);
+		List<Users> reg = userRepository.findByUsernameAndPassword(username, password);
 		
 		jwtToken = Jwts.builder().setSubject(username).claim("user", user)
 				.setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretKey")
