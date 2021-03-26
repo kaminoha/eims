@@ -28,7 +28,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>{
 					+ "where MONTH(f_date) = ?1",
 			nativeQuery = true)*/
 	@Query(value = "SELECT EXTRACT(MONTH from f_date), SUM(profit) "
-			+ "from finance GROUP BY EXTRACT(MONTH from f_date);",
+			+ "from finance GROUP BY EXTRACT(MONTH from f_date) ORDER BY EXTRACT(MONTH from f_date)",
 			nativeQuery = true)
 	List<Object[]> findByProfit();
 	
