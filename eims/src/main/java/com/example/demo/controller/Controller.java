@@ -117,7 +117,7 @@ public class Controller {
 	}
 	@GetMapping("getFinance")
 	public List<Finance> getFinance(){
-		return financeRepository.findAll();
+		return financeRepository.findByFdate();
 	}
 	
     @PostMapping("/uploadFile")
