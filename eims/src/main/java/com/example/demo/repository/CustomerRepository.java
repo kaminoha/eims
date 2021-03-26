@@ -23,9 +23,12 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>{
 					+ "GROUP BY customer_address ORDER BY tally DESC LIMIT 5",
 					nativeQuery=true)
 	List<?> findByTally();
-	@Query(
-			value = "SELECT EXTRACT(MONTH from f_date) as pmonth, SUM(profit) as p from finance "
-					+ "where EXTRACT(MONTH from f_date) = ?1",
+/*	@Query(
+			value = "SELECT MONTH(f_date) as pmonth, SUM(profit) as p from finance "
+					+ "where MONTH(f_date) = ?1",
+			nativeQuery = true)*/
+	@Query(value = "SELECT EXTRACT(MONTH from f_date), SUM(profit) "
+			+ "from finance GROUP BY EXTRACT(MONTH from f_date);",
 			nativeQuery = true)
 	List<Object[]> findByProfit(int profit);
 	
