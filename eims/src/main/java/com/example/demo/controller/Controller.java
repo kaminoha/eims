@@ -323,11 +323,11 @@ public class Controller {
     }
     @GetMapping("/salesTrend")
     private ResponseEntity<List<Object>> salesTrend(){
-    	int[] profit = {1,2,3,4,5,6,7,8,9,10,11,12,13};
+    	//int[] profit = {1,2,3,4,5,6,7,8,9,10,11,12,13};
     	List<Object> profitList = new ArrayList<>();
     	
-    	for(int i = 1; i < profit.length; i++) {
-    		List<Object[]> results = customerRepository.findByProfit(i);
+    	//for(int i = 1; i < profit.length; i++) {
+    		List<Object[]> results = customerRepository.findByProfit();
     		for(Object[] obj : results) {
     			Map<Object, Object> profits = new LinkedHashMap<>();
     			profits.put("Month", obj[0]);
@@ -335,7 +335,7 @@ public class Controller {
     			
     			profitList.add(profits);
     		}
-    	}
+    	//}
     	return new ResponseEntity<>(profitList, HttpStatus.OK);
     }
 }
