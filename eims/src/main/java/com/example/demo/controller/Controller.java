@@ -78,16 +78,16 @@ public class Controller {
 		String jwtToken = "";
 		
 		LoginResponse response = new LoginResponse();
-		if(user.getUsername() == null || user.getPassword() == null) {
+		if(user.getUsername() == null || user.getPass() == null) {
 			response.setMessage("Please enter your credentials");
 			response.setStatus(false);
 			return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
 		}
 		
 		String username = user.getUsername();
-		String password = user.getPassword();
+		String pass = user.getPass();
 		
-		List<Users> reg = userRepository.findByUsernameAndPassword(username, password);
+		List<Users> reg = userRepository.findByUsernameAndPassword(username, pass);
 		
 		jwtToken = Jwts.builder().setSubject(username).claim("user", user)
 				.setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretKey")
