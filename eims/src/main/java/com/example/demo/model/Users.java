@@ -36,11 +36,11 @@ public class Users implements Serializable{
 		this.username = username;
 	}
 
-	public String getPassword() {
+	public String getPass() {
 		return pass;
 	}
 
-	public void setPassword(String pass) {
+	public void setPass(String pass) {
 		this.pass = pass;
 	}
 
