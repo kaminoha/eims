@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 @Entity
 public class Files implements Serializable{
@@ -24,6 +25,7 @@ public class Files implements Serializable{
 	private String fileType;
 	
 	@Lob
+	@Type(type="org.hibernate.type.BinaryType")
 	private byte[] fileData;
 	
 	public Files() {
