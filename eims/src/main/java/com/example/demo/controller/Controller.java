@@ -343,7 +343,7 @@ public class Controller {
     	return new ResponseEntity<>(profitList, HttpStatus.OK);
     }
     
-    @GetMapping("/breakDown/{id}")
+    @GetMapping("/breakDown/{financeId}")
     private List<BreakDown> breakDown(@PathVariable Long financeId){
     	return breakDownRepository.findByFinanceId(financeId);
     }
