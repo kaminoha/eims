@@ -344,7 +344,7 @@ public class Controller {
     }
     
     @GetMapping("/breakDown/{id}")
-    private BreakDown breakDown(@PathVariable Long id){
-    	return breakDownRepository.findOne(id);
+    private List<BreakDown> breakDown(@PathVariable Long id){
+    	return breakDownRepository.findByFinanceId(id);
     }
 }
