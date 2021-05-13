@@ -12,8 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "break_down", schema = "d59p2g9coq9o22")
 public class BreakDown implements Serializable{
 
 	private static final long serialVersionUID = 1L;
