@@ -8,8 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -34,18 +32,6 @@ public class Customer implements Serializable{
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy= "customer")
 	@JsonBackReference
 	private Finance finance;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "break_down_id")
-	private BreakDown breakDown;
-
-	public BreakDown getBreakDown() {
-		return breakDown;
-	}
-
-	public void setBreakDown(BreakDown breakDown) {
-		this.breakDown = breakDown;
-	}
 
 	public int getSales() {
 		return sales;

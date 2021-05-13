@@ -9,7 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Finance implements Serializable {
@@ -50,6 +53,18 @@ public class Finance implements Serializable {
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 	
+	@ManyToOne
+	@JsonBackReference
+	private BreakDown breakDown;
+	
+	public BreakDown getBreakDown() {
+		return breakDown;
+	}
+
+	public void setBreakDown(BreakDown breakDown) {
+		this.breakDown = breakDown;
+	}
+
 	public String getCurrency() {
 		return currency;
 	}

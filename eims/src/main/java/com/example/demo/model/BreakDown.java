@@ -1,15 +1,17 @@
 package com.example.demo.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class BreakDown implements Serializable{
@@ -30,9 +32,18 @@ public class BreakDown implements Serializable{
 	
 	private float total;
 	
-	@ManyToOne
-	@JsonBackReference
-	private Customer customer;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "finance_id")
+	private List<Finance> finance;
+
+	public List<Finance> getFinance() {
+		return finance;
+	}
+
+	public void setFinance(List<Finance> finance) {
+		this.finance = finance;
+	}
 
 	public Long getBreakDownId() {
 		return breakDownId;
@@ -72,14 +83,6 @@ public class BreakDown implements Serializable{
 
 	public void setTotal(float total) {
 		this.total = total;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
 	}
 	
 }
