@@ -6,13 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name = "files", schema = "d59p2g9coq9o22")
 public class Files implements Serializable{
 
 	private static final long serialVersionUID = 1L;
