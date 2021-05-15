@@ -54,7 +54,7 @@ public class Finance implements Serializable {
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "finance" ,cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "break_down_id")
 	private List<BreakDown> breakDown;
 
