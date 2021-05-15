@@ -345,6 +345,6 @@ public class Controller {
     
     @GetMapping("/breakDown/{financeId}")
     private List<BreakDown> breakDown(@PathVariable Long financeId){
-    	return breakDownRepository.findAllByFinanceFinanceId(financeId);
+    	return breakDownRepository.findByFinanceId(financeId);
     }
 }
