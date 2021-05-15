@@ -9,8 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "work", schema = "d59p2g9coq9o22")
 public class Work implements Serializable{
 
 	private static final long serialVersionUID = 1L;

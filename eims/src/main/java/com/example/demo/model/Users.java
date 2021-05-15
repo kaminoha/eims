@@ -6,8 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "users", schema = "d59p2g9coq9o22")
 public class Users implements Serializable{
 
 	private static final long serialVersionUID = 1L;

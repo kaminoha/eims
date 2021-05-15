@@ -10,12 +10,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
+@Table(name = "employee", schema = "d59p2g9coq9o22")
 public class Employee implements Serializable{
 
 	private static final long serialVersionUID = 1L;
