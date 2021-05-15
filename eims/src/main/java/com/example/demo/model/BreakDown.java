@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class BreakDown implements Serializable{
 
@@ -31,6 +33,7 @@ public class BreakDown implements Serializable{
 	private float total;
 	
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name = "finance_id")
 	private Finance finance;
 
