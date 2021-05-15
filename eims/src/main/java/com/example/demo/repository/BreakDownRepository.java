@@ -11,8 +11,7 @@ import com.example.demo.model.BreakDown;
 
 @Repository
 public interface BreakDownRepository extends JpaRepository<BreakDown, Long>{
-	@Query(value = "select * from break_down as b left join finance as f "
-			+ "ON b.finance_id = f.finance_id where b.finance_id = :financeId",
+	@Query(value = "Select * from break_down where finance_id = :financeId",
 			nativeQuery = true)
 	List<BreakDown> findByFinanceId(@Param("financeId") Long financeId);
 	
