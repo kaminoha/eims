@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.model.Finance;
@@ -21,4 +22,8 @@ public interface FinanceRepository extends JpaRepository<Finance, Long>{
 	@Query(value = "Select * from finance ORDER BY f_date",
 			nativeQuery = true)
 	List<Finance> findByFdate();
+	
+	@Query(value = "Select * from finance where finance_id = :financeId",
+			nativeQuery = true)
+	List<Finance> findByFinanceId(@Param("financeId") Long financeId);
 }
