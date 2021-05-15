@@ -2,17 +2,18 @@ package com.example.demo.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Finance implements Serializable {
@@ -53,15 +54,15 @@ public class Finance implements Serializable {
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 	
-	@ManyToOne
-	@JsonBackReference
-	private BreakDown breakDown;
-	
-	public BreakDown getBreakDown() {
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "break_down_id")
+	private List<BreakDown> breakDown;
+
+	public List<BreakDown> getBreakDown() {
 		return breakDown;
 	}
 
-	public void setBreakDown(BreakDown breakDown) {
+	public void setBreakDown(List<BreakDown> breakDown) {
 		this.breakDown = breakDown;
 	}
 
