@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.demo.model.BreakDown;
 import com.example.demo.model.Customer;
 import com.example.demo.model.Employee;
 import com.example.demo.model.Files;
@@ -41,6 +42,7 @@ import com.example.demo.model.RatioResponse;
 import com.example.demo.model.Users;
 import com.example.demo.model.Work;
 import com.example.demo.payload.UploadFileResponse;
+import com.example.demo.repository.BreakDownRepository;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.DBFileRepository;
 import com.example.demo.repository.EmployeeRepository;
@@ -72,6 +74,8 @@ public class Controller {
     private DBFileRepository dbFileRepository;
     @Autowired
     private WorkRepository workRepository;
+    @Autowired
+    private BreakDownRepository breakDownRepository;
 	
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> login(@Valid @RequestBody Users user){
@@ -340,7 +344,7 @@ public class Controller {
     }
     
     @GetMapping("/breakDown/{financeId}")
-    private List<Finance> breakDown(@PathVariable Long financeId){
-    	return financeRepository.findByFinanceId(financeId);
+    private List<BreakDown> breakDown(@PathVariable Long financeId){
+    	return breakDownRepository.findByFinanceId(financeId);
     }
 }
