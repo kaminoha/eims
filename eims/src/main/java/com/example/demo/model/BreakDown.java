@@ -18,6 +18,7 @@ public class BreakDown implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "break_down_id")
 	private Long breakDownId;
 	
 	@Column(name = "item")
