@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Data
 public class Users implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -19,29 +22,5 @@ public class Users implements Serializable{
 	private String username;
 	
 	private String pass;
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUserName(String username) {
-		this.username = username;
-	}
-
-	public String getPass() {
-		return pass;
-	}
-
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
 
 }

@@ -3,18 +3,17 @@ package com.example.demo.controller;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.model.*;
+import com.example.demo.service.EmployeeService;
+import com.example.demo.service.LoginService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -32,80 +31,41 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.example.demo.model.BreakDown;
-import com.example.demo.model.Customer;
-import com.example.demo.model.Employee;
-import com.example.demo.model.Files;
-import com.example.demo.model.Finance;
-import com.example.demo.model.LoginResponse;
-import com.example.demo.model.RatioResponse;
-import com.example.demo.model.Users;
-import com.example.demo.model.Work;
-import com.example.demo.payload.UploadFileResponse;
+import com.example.demo.model.dto.LoginResponse;
+import com.example.demo.model.dto.RatioResponse;
+import com.example.demo.model.dto.UploadFileResponse;
 import com.example.demo.repository.BreakDownRepository;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.DBFileRepository;
-import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.repository.FinanceRepository;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.WorkRepository;
 import com.example.demo.service.DBFileStorageService;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class Controller {
-	
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private EmployeeRepository employeeRepository;
-	@Autowired
+
+	private LoginService loginService;
+
+	private EmployeeService employeeService;
+
 	private CustomerRepository customerRepository;
-	@Autowired
+
 	private FinanceRepository financeRepository;
-	//private static final Logger logger = LoggerFactory.getLogger(Controller.class);
-    @Autowired
+
     private DBFileStorageService dbFileStorageService;
-    @Autowired
+
     private DBFileRepository dbFileRepository;
-    @Autowired
+
     private WorkRepository workRepository;
-    @Autowired
+
     private BreakDownRepository breakDownRepository;
 	
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> login(@Valid @RequestBody Users user){
-		String jwtToken = "";
-		
-		LoginResponse response = new LoginResponse();
-		if(user.getUsername() == null || user.getPass() == null) {
-			response.setMessage("Please enter your credentials");
-			response.setStatus(false);
-			return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
-		}
-		
-		String username = user.getUsername();
-		String pass = user.getPass();
-		
-		List<Users> reg = userRepository.findByUsernameAndPassword(username, pass);
-		
-		jwtToken = Jwts.builder().setSubject(username).claim("user", user)
-				.setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretKey")
-				.compact();
-		
-		if(Objects.isNull(reg)|| reg.isEmpty()) {
-			response.setStatus(false);
-			response.setMessage("User doesn't exist");
-		}
-		else {
-			response.setStatus(true);
-			response.setMessage("Welcome");
-			response.setToken(jwtToken);
-		}
+		LoginResponse response = loginService.login(user);
 		
 		return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
 	}
@@ -130,7 +90,7 @@ public class Controller {
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
-                .path(dbFile.getId())
+                .path(dbFile.getFileId())
                 .toUriString();
 
         return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
@@ -139,9 +99,8 @@ public class Controller {
     
     @PostMapping("/uploadMultipleFiles")
     public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        return Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
+        return Arrays.stream(files)
+                .map(this::uploadFile)
                 .collect(Collectors.toList());
     }
     
@@ -153,7 +112,7 @@ public class Controller {
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(dbFile.getFileType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + dbFile.getFileName() + "\"")
-                .body(new ByteArrayResource(dbFile.getData()));
+                .body(new ByteArrayResource(dbFile.getFileData()));
     }
     @GetMapping("/displayFile")
     public List<Files> getFile(){
@@ -163,8 +122,8 @@ public class Controller {
     public ResponseEntity<RatioResponse> getRatio(){
     	RatioResponse response = new RatioResponse(); 
     	
-    	long male = employeeRepository.countByGender("Male");
-    	long female = employeeRepository.countByGender("Female");
+    	long male = employeeService.countByGender("Male");
+    	long female = employeeService.countByGender("Female");
     	
     	response.setFemale(female);
     	response.setMale(male);
@@ -173,7 +132,7 @@ public class Controller {
     }
     @GetMapping("/topEmp")
     public List<Employee> getTopEmp(){
-    	return employeeRepository.findTop5ByOrderByFinance_RevenueDesc();
+    	return employeeService.topFiveByOrderByFinance();
     }
     @GetMapping("/topLocation")
     public ResponseEntity<List<Object>> getTopLocation(){

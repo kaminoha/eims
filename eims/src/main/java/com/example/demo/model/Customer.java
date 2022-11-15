@@ -11,8 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
 
 @Entity
+@Data
 public class Customer implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -32,53 +34,4 @@ public class Customer implements Serializable{
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy= "customer")
 	@JsonBackReference
 	private Finance finance;
-
-	public int getSales() {
-		return sales;
-	}
-
-	public void setSales(int sales) {
-		this.sales = sales;
-	}
-
-	public Finance getFinance() {
-		return finance;
-	}
-
-	public void setFinance(Finance finance) {
-		this.finance = finance;
-	}
-
-	public Long getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(Long customerId) {
-		this.customerId = customerId;
-	}
-
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
-
-	public String getCustomerAddress() {
-		return customerAddress;
-	}
-
-	public void setCustomerAddress(String customerAddress) {
-		this.customerAddress = customerAddress;
-	}
-
-	public int getCustomerContact() {
-		return customerContact;
-	}
-
-	public void setCustomerContact(int customerContact) {
-		this.customerContact = customerContact;
-	}
-
 }

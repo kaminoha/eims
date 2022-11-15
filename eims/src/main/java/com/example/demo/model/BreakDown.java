@@ -11,8 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
 
 @Entity
+@Data
 public class BreakDown implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -36,53 +38,5 @@ public class BreakDown implements Serializable{
 	@JsonBackReference
 	@JoinColumn(name = "finance_id")
 	private Finance finance;
-
-	public Finance getFinance() {
-		return finance;
-	}
-
-	public void setFinance(Finance finance) {
-		this.finance = finance;
-	}
-
-	public Long getBreakDownId() {
-		return breakDownId;
-	}
-
-	public void setBreakDownId(Long breakDownId) {
-		this.breakDownId = breakDownId;
-	}
-
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	public float getPrice() {
-		return price;
-	}
-
-	public void setPrice(float price) {
-		this.price = price;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public float getTotal() {
-		return total;
-	}
-
-	public void setTotal(float total) {
-		this.total = total;
-	}
 	
 }

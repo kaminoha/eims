@@ -7,10 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 @Entity
+@Data
 public class Files implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -35,38 +37,6 @@ public class Files implements Serializable{
 	public Files(String fileName, String fileType, byte[] data) {
 		this.fileName = fileName;
 		this.fileType= fileType;
-		this.fileData = data;
-	}
-
-	public String getId() {
-		return fileId;
-	}
-
-	public void setId(String id) {
-		this.fileId = id;
-	}
-
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public String getFileType() {
-		return fileType;
-	}
-
-	public void setFileType(String fileType) {
-		this.fileType = fileType;
-	}
-
-	public byte[] getData() {
-		return fileData;
-	}
-
-	public void setData(byte[] data) {
 		this.fileData = data;
 	}
 
