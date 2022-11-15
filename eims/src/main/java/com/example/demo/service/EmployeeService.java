@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Employee;
+import com.example.demo.model.dto.RatioResponse;
 import com.example.demo.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,17 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public long countByGender(String gender) {
-        return employeeRepository.countByGender(gender);
+    public RatioResponse countByGender() {
+
+        RatioResponse response = new RatioResponse();
+
+        long male = employeeRepository.countByGender("Male");
+        long female = employeeRepository.countByGender("Female");
+
+        response.setFemale(female);
+        response.setMale(male);
+
+        return response;
     }
 
     public List<Employee> topFiveByOrderByFinance() {

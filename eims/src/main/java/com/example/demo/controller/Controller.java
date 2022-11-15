@@ -13,7 +13,8 @@ import javax.validation.Valid;
 import com.example.demo.model.*;
 import com.example.demo.service.EmployeeService;
 import com.example.demo.service.LoginService;
-import lombok.RequiredArgsConstructor;
+import com.example.demo.service.UploadFileService;
+import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -29,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.demo.model.dto.LoginResponse;
 import com.example.demo.model.dto.RatioResponse;
@@ -44,8 +44,10 @@ import com.example.demo.service.DBFileStorageService;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class Controller {
+
+	private UploadFileService uploadFileService;
 
 	private LoginService loginService;
 
@@ -85,20 +87,15 @@ public class Controller {
 	}
 	
     @PostMapping("/uploadFile")
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-        Files dbFile = dbFileStorageService.storeFile(file);
+    public ResponseEntity<UploadFileResponse> uploadFile(@RequestParam("file") MultipartFile file) {
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(dbFile.getFileId())
-                .toUriString();
+		UploadFileResponse response = uploadFileService.uploadFile(file);
 
-        return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
-                file.getContentType(), file.getSize());
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
     @PostMapping("/uploadMultipleFiles")
-    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+    public List<ResponseEntity<UploadFileResponse>> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
         return Arrays.stream(files)
                 .map(this::uploadFile)
                 .collect(Collectors.toList());
@@ -120,13 +117,8 @@ public class Controller {
     }
     @GetMapping("/genderRatio")
     public ResponseEntity<RatioResponse> getRatio(){
-    	RatioResponse response = new RatioResponse(); 
-    	
-    	long male = employeeService.countByGender("Male");
-    	long female = employeeService.countByGender("Female");
-    	
-    	response.setFemale(female);
-    	response.setMale(male);
+
+		RatioResponse response = employeeService.countByGender();
     	
     	return new ResponseEntity<>(response,HttpStatus.OK);
     }
