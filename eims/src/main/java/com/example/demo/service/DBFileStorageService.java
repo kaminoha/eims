@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.io.IOException;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -13,9 +14,9 @@ import com.example.demo.model.Files;
 import com.example.demo.repository.DBFileRepository;
 
 @Service
+@RequiredArgsConstructor
 public class DBFileStorageService {
 
-    @Autowired
     private DBFileRepository dbFileRepository;
 
     public Files storeFile(MultipartFile file) {

@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
+@Data
 public class Finance implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -56,93 +59,4 @@ public class Finance implements Serializable {
 	
 	@OneToMany(mappedBy = "finance" ,cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<BreakDown> breakDown;
-
-	public List<BreakDown> getBreakDown() {
-		return breakDown;
-	}
-
-	public void setBreakDown(List<BreakDown> breakDown) {
-		this.breakDown = breakDown;
-	}
-
-	public String getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
-	public Date getfDate() {
-		return fDate;
-	}
-
-	public void setfDate(Date fDate) {
-		this.fDate = fDate;
-	}
-
-	public int getProfit() {
-		return profit;
-	}
-
-	public void setProfit(int profit) {
-		this.profit = profit;
-	}
-
-	public int getLoss() {
-		return loss;
-	}
-
-	public void setLoss(int loss) {
-		this.loss = loss;
-	}
-
-	public int getRevenue() {
-		return revenue;
-	}
-
-	public void setRevenue(int revenue) {
-		this.revenue = revenue;
-	}
-
-	public int getCost() {
-		return cost;
-	}
-
-	public void setCost(int cost) {
-		this.cost = cost;
-	}
-
-	public Long getFinanceId() {
-		return financeId;
-	}
-
-	public void setFinanceId(Long financeId) {
-		this.financeId = financeId;
-	}
-
-	public int getAssets() {
-		return assets;
-	}
-
-	public void setAssets(int assets) {
-		this.assets = assets;
-	}
-
 }

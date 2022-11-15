@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Data
 public class Agent implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -21,37 +24,5 @@ public class Agent implements Serializable{
 	private String lastName;
 	
 	private float sales;
-
-	public Long getAgentId() {
-		return agentId;
-	}
-
-	public void setAgentId(Long agentId) {
-		this.agentId = agentId;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public float getSales() {
-		return sales;
-	}
-
-	public void setSales(float sales) {
-		this.sales = sales;
-	}
 
 }

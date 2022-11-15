@@ -24,5 +24,6 @@ com\example\demo\repository\FinanceRepository.class
 com\example\demo\repository\CustomerRepository.class
 com\example\demo\EimsApplication.class
 com\example\demo\model\CurrencyResponse.class
+com\example\demo\service\EmployeeService.class
 com\example\demo\model\Files.class
 com\example\demo\payload\UploadFileResponse.class
